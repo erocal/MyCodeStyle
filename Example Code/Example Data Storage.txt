@@ -1,0 +1,153 @@
+﻿using UnityEngine;
+
+public class ExampleGameDataStorage : MonoBehaviour
+{
+
+	#region -- 資源參考區 --
+
+	[Header("範例功能資訊儲存")]
+	[SerializeField] private ExampleFunctionSerializable exampleFunctionSerializable;
+
+	#endregion
+
+	#region -- 變數參考區 --
+
+	private static ExampleGameDataStorage _instance;
+
+	public static ExampleGameDataStorage Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = FindObjectOfType<ExampleGameDataStorage>();
+			}
+
+			return _instance;
+		}
+		private set { }
+	}
+
+	#endregion
+
+	#region -- 初始化/運作 --
+
+	// 防止外部實例化該類
+	private ExampleGameDataStorage()
+	{
+	}
+
+	private void Awake()
+	{
+		GetInstance();
+	}
+
+	private void OnDestroy()
+	{
+		_instance = null;
+	}
+
+	#endregion
+
+	#region -- 方法參考區 --
+
+	#region -- 單例模式 --
+
+	/// <summary>
+	/// 獲取唯一實例
+	/// </summary>
+	private void GetInstance()
+	{
+		if (_instance == null)
+		{
+			_instance = this;
+		}
+		else
+		{
+			Destroy(gameObject); // 如果已經有一個實例存在，銷毀這個新的實例
+			return;
+		}
+	}
+
+	#endregion
+	
+	#region -- Get方法 --
+	
+	#region -- 範例功能資訊儲存 --
+	
+	/// <summary>
+	/// 取得範例功能操作程式碼
+	/// </summary>
+	public ExampleFunction GetExampleFunction()
+	{
+		if (exampleFunctionSerializable.exampleFunction == null) Debug.Error("未掛載範例功能操作程式碼組件");
+
+		return exampleFunctionSerializable.exampleFunction;
+	}
+
+	/// <summary>
+	/// 取得是否為範例功能布林變數(控制的那項功能)
+	/// </summary>
+	public bool GetIsExampleFunctionBoolVariable()
+	{
+		return exampleFunctionSerializable.isExampleFunctionBoolVariable;
+	}
+
+	/// <summary>
+	/// 取得範例功能整數變數
+	/// </summary>
+	public int GetExampleFunctionIntVariable()
+	{
+		return exampleFunctionSerializable.exampleFunctionIntVariable;
+	}
+	
+	#endregion
+	
+	#endregion
+	
+	#region -- Set方法 --
+	
+	#region -- 範例功能資訊儲存 --
+
+	/// <summary>
+	/// 設置範例功能布林變數(控制的那項功能)
+	/// </summary>
+	public void SetIsExampleFunctionBoolVariable(bool isExampleFunctionBoolVariable)
+	{
+		exampleFunctionSerializable.isExampleFunctionBoolVariable = isExampleFunctionBoolVariable;
+	}
+
+	/// <summary>
+	/// 設置範例功能整數變數
+	/// </summary>
+	public void SetExampleFunctionIntVariable(int exampleFunctionIntVariable)
+	{
+		exampleFunctionSerializable.exampleFunctionIntVariable = exampleFunctionIntVariable;
+	}
+
+	#endregion
+	
+	#endregion
+	
+	#endregion
+	
+	#region -- Serializable --
+
+	#region -- 範例功能資訊儲存 --
+
+	[System.Serializable]
+	private class ExampleFunctionSerializable
+	{
+		[Tooltip("範例功能操作程式碼")]
+		public ExampleFunction exampleFunction;
+		[Tooltip("範例功能布林變數")]
+		public bool isExampleFunctionBoolVariable;
+		[Tooltip("範例功能整數變數")]
+		public int exampleFunctionIntVariable;
+	}
+
+	#endregion
+	
+	#endregion
+
+}
