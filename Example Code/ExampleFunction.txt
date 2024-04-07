@@ -1,0 +1,33 @@
+﻿using UnityEngine;
+
+public class ExampleFunction : MonoBehaviour
+{
+    #region -- 變數參考區 --
+
+    ExampleGameDataStorage exampleGameDataStorage;
+
+    #endregion
+
+    #region -- 初始化/運作 --
+    
+    private void Start()
+    {
+        exampleGameDataStorage = ExampleGameDataStorage.Instance;
+        CheckExampleGameDataStorageToDoSomething();
+    }
+
+    #endregion
+
+    #region -- 方法參考區 --
+
+    /// <summary>
+    /// 確認某項資料然後做某件事
+    /// </summary>
+    private void CheckExampleGameDataStorageToDoSomething()
+    {
+        exampleGameDataStorage.SetIsExampleFunctionBoolVariable(exampleGameDataStorage.GetExampleFunctionIntVariable() == 1);
+        
+    }
+
+    #endregion
+}
