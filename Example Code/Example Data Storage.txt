@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+/// 這個類別只會在對應場景裡擁有一個，做的是永遠只有一項 : 提供資料與儲存資料，任何運算都會另開其他程式碼處理
+
+using UnityEngine;
 
 public class ExampleGameDataStorage : MonoBehaviour
 {
